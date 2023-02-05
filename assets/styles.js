@@ -1,6 +1,7 @@
 const primary = '#1ab65c';
 const primaryDark = '#53a777'
 const primaryLight = '#edfaf2'
+const primaryLight2 = '#E8F8EF'
 const dark = '#212121'
 const bg = '#ffffff'
 const borderLight = '#eeeeee'
@@ -10,4 +11,5 @@ const warning = '#E8426E'
 const boxBg = '#f5f5f5'
 const fontLight2 = '#e5e4e3'
 
-export { primary, primaryDark, primaryLight, dark, bg, borderLight, fontLight, light, warning, boxBg, fontLight2 }
+
+export { primary, primaryDark, primaryLight2, primaryLight, dark, bg, borderLight, fontLight, light, warning, boxBg, fontLight2 }

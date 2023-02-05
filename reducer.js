@@ -1,12 +1,19 @@
 import { createContext, useReducer } from "react";
 
-export const initialState = { screen: "home" };
+export const initialState = { screen: "home", removeBookmarkModal: {
+    isVisible: false,
+    hotel: undefined,
+}};
 
 export const reducer = (state, action) => {
-    console.log('action' , action, action.payload)
     switch (action.type) {
         case "SET_SCREEN":
         return { ...state, screen: action.payload };
+        
+        case "SET_REMOVE_BOOKMARK_MODAL":
+        return { ...state, removeBookmarkModal: action.payload };
+
+        case "REMOVE_BOOKMARK": 
         default:
         return state;
     }

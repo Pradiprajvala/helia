@@ -3,7 +3,7 @@ import React from 'react'
 
 
 import MyBookmarksHeader from '../../components/myBookMarksScreen/MyBookmarksHeader';
-import { data } from '../../components/homeScreen/RecentlyBooked';
+import { RBHotels } from '../../data';
 import MyBookmarks from '../../components/myBookMarksScreen/MyBookmarks';
 import { light } from '../../assets/styles';
 
@@ -11,7 +11,7 @@ const MyBookmarksScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <MyBookmarksHeader navigation={navigation} />
-      <MyBookmarks hotels={data} />
+      <MyBookmarks hotels={RBHotels} />
     </View>
   )
 }

@@ -10,14 +10,13 @@ import DataLayer from './DataLayer'
 import { initialState, reducer } from './reducer'
 import RecentlyBookedScreen from './screens/RecentlyBookedScreen.js/RecentlyBookedScreen'
 import MyBookmarksScreen from './screens/myBookmarksScreen.js/MyBookmarksScreen'
+import RemoveBookmarkModal from './components/modals/RemoveBookmarkModal'
 
 const Stack = createStackNavigator()
 
 const Tab = createBottomTabNavigator()
 
-const NavigationHelper = ({ navigation }) => {
-    const [currentScreen, setCurrentScreen] = React.useState('home')
-
+const NavigationHelper = () => {
 //   return (
 //     <>
 //         <Stack.Navigator
@@ -40,6 +39,7 @@ const NavigationHelper = ({ navigation }) => {
                 <Stack.Screen name='RecentlyBookedScreen' component={RecentlyBookedScreen} />
                 <Stack.Screen name='MyBookmarksScreen' component={MyBookmarksScreen} />
             </Tab.Navigator>
+            <RemoveBookmarkModal/>
         </DataLayer>
 
     )

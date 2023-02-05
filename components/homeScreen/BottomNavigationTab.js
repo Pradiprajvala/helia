@@ -9,7 +9,6 @@ import { DataLayerValue } from '../../DataLayer'
 const BottomNavigationTab = ({ navigation }) => {
 
   const [state, dispatch] = DataLayerValue()
-  console.log('this is state',state)
     
     const selectedTab = state.screen
 

@@ -1,92 +1,19 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { bg, dark, fontLight, fontLight2, light, primary } from '../../assets/styles'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-
-
-export const data = [
-    {
-        id: 1,
-        title: 'President Hotel',
-        location: 'Paris, France',
-        image: 'https://images.pexels.com/photos/237371/pexels-photo-237371.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        price: 35,
-        rating: 4.5,
-        isSaved: true,
-        reviewCount: 5283
-    },
-    {
-        id: 2,
-        title: 'Palms Casino',
-        location: 'Amsterdam, Netherlands',
-        image: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        price: 29,
-        rating: 4.5,
-        isSaved: false,
-        reviewCount: 2521
-    },
-    {
-        id: 3,
-        title: 'The Venetian',
-        location: 'Las Vegas, USA.',
-        image: 'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        price: 36,
-        rating: 4.6,
-        isSaved: true,
-        reviewCount: 5513
-    },
-    {
-        id: 4,
-        title: 'Palazzo Versace',
-        location: 'Rome, Italy',
-        image: 'https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=600',
-        price: 27,
-        rating: 4.7,
-        isSaved: false,
-        reviewCount: 3211
-    },
-    {
-        id: 5,
-        title: 'The Cosmopolitan',
-        location: 'Las Vegas, USA',
-        image: 'https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        price: 32,
-        rating: 4.5,
-        isSaved: false,
-        reviewCount: 1325
-    },
-    {
-        id: 6,
-        title: 'Bulgari Resort',
-        location: 'Dubai, UAE',
-        image: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=600',
-        price: 45,
-        rating: 4.8,
-        isSaved: false,
-        reviewCount: 3344
-    },
-    {
-        id: 7,
-        title: 'Martinez Cannes',
-        location: 'London, UK',
-        image: 'https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        price: 27,
-        rating: 4.5,
-        isSaved: true,
-        reviewCount: 1432
-    }
-]
-
+import { DataLayerValue } from '../../DataLayer';
+import { RBHotels } from '../../data';
 
 const RecentlyBooked = ({ limit, navigation, dontShowHeader }) => {
+    
   return (
     <View style={styles.contianer}>
         {
             !dontShowHeader && <RecentlyBookedHeader navigation={navigation} />
         }
       
-      <RecentlyBookedHotels hotels={data} isSaved={true} limit={limit} />
+      <RecentlyBookedHotels hotels={RBHotels} isSaved={true} limit={limit} />
     </View>
   )
 }
@@ -117,9 +44,20 @@ const RecentlyBookedHotels = ({ hotels, limit }) => {
     )
 }
 
-const RecentlyBookedCard = ({ hotel }) => {
+export const RecentlyBookedCard = ({ hotel, modal }) => {
+    const [{}, dispatch] = DataLayerValue();
     const { title, location, image, price, rating, isSaved, reviewCount } = hotel
     const [saved, setSaved] = React.useState(isSaved)
+
+    const handleRemoveBookmark = () => {
+        dispatch({
+            type: 'SET_REMOVE_BOOKMARK_MODAL',
+            payload: {
+                isVisible: true,
+                hotel: hotel
+            }
+        })
+    }
     return (
         <Pressable style={styles.recentlyBookedCardContainer}>
             <View style={styles.recentlyBookedCardImageContainer}>
@@ -139,11 +77,20 @@ const RecentlyBookedCard = ({ hotel }) => {
                     <Text style={styles.recentlyBookedCardRightContainerPrice}>${price}</Text>
                     <Text style={styles.recentlyBookedCardRightContainerRate}>/night</Text>
                 </View>
-                <TouchableOpacity onPress={() => setSaved(!saved)}>
+                {
+                !modal && <TouchableOpacity onPress={() => {
+                    if(!saved) setSaved(true);
+                    else
+                    handleRemoveBookmark();
+                }}>
                 {
                     saved ? <MaterialCommunityIcons name="bookmark-minus" size={28} color={primary} />  : <MaterialCommunityIcons name="bookmark-minus-outline" size={28} color={fontLight} /> 
                 }
                 </TouchableOpacity>
+                }
+                {
+                    modal && <MaterialCommunityIcons name="bookmark-minus" size={28} color={primary} />
+                }
             </View>
         </Pressable>
     )

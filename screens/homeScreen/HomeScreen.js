@@ -1,11 +1,11 @@
-import { StatusBar, StyleSheet, Text, View, Image, ImageBackground, Pressable } from 'react-native'
+import { StatusBar, StyleSheet, Text, View, Image, ImageBackground, Pressable, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import { bg, boxBg, dark, fontLight, fontLight2, light, primary } from '../../assets/styles'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
 import logo from '../../assets/icons/logo.png'
 import { MaterialCommunityIcons, Ionicons, Feather, AntDesign } from '@expo/vector-icons'
-import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import * as Location from 'expo-location'
 import RecentlyBooked from '../../components/homeScreen/RecentlyBooked'
 import { useFocusEffect } from '@react-navigation/native'
@@ -22,11 +22,8 @@ const HomeScreen = ({ navigation }) => {
   const [hotels, setHotels] = React.useState({}) 
   const [ selectedCatagory, setSelectedCatagory ] = React.useState('Recommended')
 
-  console.log(selectedCatagory)
-
   useFocusEffect(
     useCallback(() => {
-      console.log('HomeScreen focused')
       dispatch({ type: 'SET_SCREEN', payload: 'home'})
     }, [])
   )
