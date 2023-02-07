@@ -11,6 +11,7 @@ import { initialState, reducer } from './reducer'
 import RecentlyBookedScreen from './screens/RecentlyBookedScreen.js/RecentlyBookedScreen'
 import MyBookmarksScreen from './screens/myBookmarksScreen.js/MyBookmarksScreen'
 import RemoveBookmarkModal from './components/modals/RemoveBookmarkModal'
+import HotelScreen from './screens/HotelScreen/HotelScreen'
 
 const Stack = createStackNavigator()
 
@@ -38,6 +39,7 @@ const NavigationHelper = () => {
                 <Tab.Screen name="SearchScreen" component={SearchScreen} />
                 <Stack.Screen name='RecentlyBookedScreen' component={RecentlyBookedScreen} />
                 <Stack.Screen name='MyBookmarksScreen' component={MyBookmarksScreen} />
+                <Stack.Screen name='HotelScreen' component={HotelScreen} />
             </Tab.Navigator>
             <RemoveBookmarkModal/>
         </DataLayer>

@@ -13,7 +13,7 @@ const RecentlyBooked = ({ limit, navigation, dontShowHeader }) => {
             !dontShowHeader && <RecentlyBookedHeader navigation={navigation} />
         }
       
-      <RecentlyBookedHotels hotels={RBHotels} isSaved={true} limit={limit} />
+      <RecentlyBookedHotels navigation={navigation} hotels={RBHotels} isSaved={true} limit={limit} />
     </View>
   )
 }
@@ -29,7 +29,7 @@ export const RecentlyBookedHeader = ({ navigation }) => {
     )
 }
 
-const RecentlyBookedHotels = ({ hotels, limit }) => {
+const RecentlyBookedHotels = ({ hotels, limit, navigation }) => {
 
     const getLastLimit = limit => limit != -1 ? limit : hotels.length-1
 
@@ -37,14 +37,14 @@ const RecentlyBookedHotels = ({ hotels, limit }) => {
         <View style={styles.recentlyBookedHotelsContainer}>
             {hotels.slice(0,getLastLimit(limit)).map((hotel) => {
                 return (
-                    <RecentlyBookedCard key={hotel.id} hotel={hotel} />
+                    <RecentlyBookedCard navigation={navigation} key={hotel.id} hotel={hotel} />
                 )
             })}
         </View>
     )
 }
 
-export const RecentlyBookedCard = ({ hotel, modal }) => {
+export const RecentlyBookedCard = ({ hotel, modal, navigation }) => {
     const [{}, dispatch] = DataLayerValue();
     const { title, location, image, price, rating, isSaved, reviewCount } = hotel
     const [saved, setSaved] = React.useState(isSaved)
@@ -59,7 +59,7 @@ export const RecentlyBookedCard = ({ hotel, modal }) => {
         })
     }
     return (
-        <Pressable style={styles.recentlyBookedCardContainer}>
+        <Pressable style={styles.recentlyBookedCardContainer} onPress={() => navigation.navigate('HotelScreen')}>
             <View style={styles.recentlyBookedCardImageContainer}>
                 <Image source={{ uri: image }} style={styles.RecentlyBookedCardImage} />
             </View>
